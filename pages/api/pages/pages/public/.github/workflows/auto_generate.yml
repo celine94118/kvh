@@ -1,0 +1,16 @@
+name: Auto Generate Products
+
+on:
+  schedule:
+    - cron: '0 */12 * * *' # toutes les 12h
+  workflow_dispatch:
+
+jobs:
+  generate_product:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call API to generate product
+        run: |
+          curl -X GET "https://TON-DOMAIN.vercel.app/api/generate?secret=$ADMIN_SECRET"
+        env:
+          ADMIN_SECRET: ${{ secrets.ADMIN_SECRET }}
